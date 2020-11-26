@@ -29,6 +29,7 @@ SCIENTIFIC BENCHMARKING
    :maxdepth: 4
 
    scientific/scientific
+   scientific/level_1
 
 TEHCNICAL MONITORING
 -----------------------
