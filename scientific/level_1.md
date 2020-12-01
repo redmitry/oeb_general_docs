@@ -199,15 +199,15 @@ order to do that they have to:
 
 5.  Upload the array of JSON objects to the temporary database (using the assigned username and password) with the following command : `curl -v -X POST -u <user>:<passwd> -H "Content-Type: application/json" https://openebench.bsc.es/api/scientific/submission/ -d @your_file_name.json`
 
-6.  [[2nd validation]{.ul}][23] of data in temporary database against Benchmarking Data Model.
+6.  2nd validation of data in temporary database against Benchmarking Data Model.
 
-7.  Use the [[migration tool]{.ul}][24] for moving the data to production OEB Mongo DB.
+7.  Use the [migration tool](https://github.com/inab/benchmarking/tree/master/distiller/src/main/java/es/elixir/bsc/openebench) for moving the data to production OEB Mongo DB.
 
-8.  Data is ready to be visualized in [[OpenEBench]{.ul}][25]!!
+8.  Data is ready to be visualized in [OpenEBench](https://openebench.bsc.es/)!!
 
 Please note that steps 6 and 7 are now performed by the OpenEBench team.
 
-![][26]
+![1](../media/image8.png)
 
 ### Scientific benchmarking: visualization and interpretation of results
 
@@ -230,18 +230,17 @@ understandable by all kinds of users.
 
 There are currently three available visualization modes in the platform:
 
--   **2D ScatterPlot**: chart that allows to visualize results from challenges that use two performance metrics (e.g precision vs recall) [[https://github.com/inab/OpenEBench_scientific_visualizer]{.ul}][27]
+-   [**2D ScatterPlot**](#Scientific-benchmarking-visualization:-2D-ScatterPlot): chart that allows to visualize results from challenges that use two performance metrics (e.g precision vs recall) [See source code here](https://github.com/inab/OpenEBench_scientific_visualizer)
 
--   **BarPlot**: chart that allows to visualize results from challenges that use one performance metric (e.g F-Measure) [[https://github.com/inab/Scientific_Barplot]{.ul}][28]
+-   [**BarPlot**](#Scientific-benchmarking-visualization:-BarPlot): chart that allows to visualize results from challenges that use one performance metric (e.g F-Measure) [See source code here](https://github.com/inab/Scientific_Barplot)
 
--   **Benchmarking Event Summary Table**: table that summarizes the results of a multi-challenge benchmarking experiment. [[https://github.com/inab/bench_event_table]{.ul}][29]
+-   [**Benchmarking Event Summary Table**](#Scientific-benchmarking-visualization:-Benchmarking-Event-Summary-Table): table that summarizes the results of a multi-challenge benchmarking experiment. [See source code here](https://github.com/inab/bench_event_table)
 
 All these visualization modes were designed as 'portable widgets'; that
 is, they can be used within the OpenEBench infrastructure, or easily
 plugged in another website that consumes data from OpenEBench APIs.
-Usually, it is just needed npm ([[https://www.npmjs.com/]{.ul}][30]) to
-install all the library' dependencies and Webpack
-([[https://webpack.js.org/]{.ul}][31]) to compile the code, which
+Usually, it is just needed [npm](https://www.npmjs.com/) to
+install all the library' dependencies and [Webpack](https://webpack.js.org/) to compile the code, which
 results in a 'build.js' file that can be reused in any web server.
 
 #### Scientific benchmarking visualization: 2D ScatterPlot
@@ -274,8 +273,7 @@ elements of chart's legend and table are clickable so that the end-user
 can hide the participants he is not interested in and/or lay far from
 the area of interest; and the classification is dynamically recomputed.
 
-For more information, visit its official Git Repository
-[[https://github.com/inab/OpenEBench_scientific_visualizer]{.ul}][27]
+For more information, visit its official Git Repository - https://github.com/inab/OpenEBench_scientific_visualizer
 
 #### Scientific benchmarking visualization: BarPlot
 
@@ -295,8 +293,7 @@ were then rated according to the performance of the participants within
 them: the groups showing the highest (or lowest, depending on the
 metric) values were considered as the first quartile (best performance).
 
-For more information, visit its official Git Repository
-[[https://github.com/inab/Scientific_Barplot]{.ul}][28]
+For more information, visit its official Git Repository - https://github.com/inab/Scientific_Barplot
 
 #### Scientific benchmarking visualization: Benchmarking Event Summary Table
 
@@ -308,5 +305,4 @@ top-performing tools. This view offers the possibility to see, at a
 glance, the overall results of a tool's performance across all the
 benchmarking challenges in a particular event.
 
-For more information, visit its official Git Repository
-[[https://github.com/inab/bench_event_table]{.ul}][29]
+For more information, visit its official Git Repository - https://github.com/inab/bench_event_table
