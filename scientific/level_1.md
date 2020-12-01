@@ -160,7 +160,7 @@ communities running scientific benchmarking activities. OpenEBench will
 work closely with the ELIXIR Data Platform to identify the most suitable
 long-term data repositories for data generated at the platform.
 
-### OpenEBench APIs
+## OpenEBench APIs
 
 OpenEBench platform aims to be a central platform not only to generate,
 but to publish and distribute benchmarking data across the scientific
@@ -182,7 +182,7 @@ created). In those conditions data and tools access can be restricted as
 required. OpenEBench will not provide data access credentials. Instead,
 we will honor the agreements between data users and providers.
 
-### Data Upload
+## Data Upload
 
 OpenEBench Community Managers can upload the results from their full
 benchmarking event to the platform by using one of the scientific APIs
@@ -209,7 +209,7 @@ Please note that steps 6 and 7 are now performed by the OpenEBench team.
 
 ![1](../media/image8.png)
 
-### Scientific benchmarking: visualization and interpretation of results
+## Scientific benchmarking: visualization and interpretation of results
 
 To increase the informativeness of benchmarking results it is important
 to visualize the participants results in an appropriate context, which
@@ -243,7 +243,7 @@ Usually, it is just needed [npm](https://www.npmjs.com/) to
 install all the library' dependencies and [Webpack](https://webpack.js.org/) to compile the code, which
 results in a 'build.js' file that can be reused in any web server.
 
-#### Scientific benchmarking visualization: 2D ScatterPlot
+### Scientific benchmarking visualization: 2D ScatterPlot
 
 This chart allows to visualize results from challenges that use two
 performance metrics (e.g precision vs recall), and apply several
@@ -275,7 +275,7 @@ the area of interest; and the classification is dynamically recomputed.
 
 For more information, visit its official Git Repository - https://github.com/inab/OpenEBench_scientific_visualizer
 
-#### Scientific benchmarking visualization: BarPlot
+### Scientific benchmarking visualization: BarPlot
 
 This chart allows to visualize results from challenges that use one
 single performance metric (e.g F-Measure), and transform them to tabular
@@ -295,7 +295,7 @@ metric) values were considered as the first quartile (best performance).
 
 For more information, visit its official Git Repository - https://github.com/inab/Scientific_Barplot
 
-#### Scientific benchmarking visualization: Benchmarking Event Summary Table
+### Scientific benchmarking visualization: Benchmarking Event Summary Table
 
 The summary table condenses the results of a whole benchmarking event in
 a single table. Each of the columns corresponds to the
