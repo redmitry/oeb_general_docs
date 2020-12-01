@@ -168,11 +168,11 @@ community. To this end, a set of microservices are publicly offered as
 REST APIs to retrieve data from the major OpenEBench repositories.
 
 
-| Data Retrieval APIs           |                     Endpoint                        | Source code | 
+| Data Retrieval APIs           |                     URL                        | Source code | 
 |-------------------------------|-----------------------------------------------------|-------------|
-| OpenEBench Tools Monitoring   | https://openebench.bsc.es/monitor/                  | https://github.com/inab/elixibilitas        |
-| OpenEBench Scientific Upload  | https://openebench.bsc.es/api/scientific/submission/| https://gitlab.bsc.es/inb/elixir/openebench/openebench-submission-api        |        
-| OpenEBench Scientific Retrieve| https://openebench.bsc.es/sciapi/                   | Inab repo        | 
+| OpenEBench Tools Monitoring   | [endpoint](https://openebench.bsc.es/monitor/)                  | [https://gitlab.bsc.es/inb/elixir/tools-platform/elixibilitas](https://gitlab.bsc.es/inb/elixir/tools-platform/elixibilitas)        |
+| OpenEBench Scientific Upload  | [endpoint](https://openebench.bsc.es/api/scientific/submission/)| [https://gitlab.bsc.es/inb/elixir/openebench/openebench-submission-api](https://gitlab.bsc.es/inb/elixir/openebench/openebench-submission-api)        |        
+| OpenEBench Scientific Retrieve|  [endpoint](https://openebench.bsc.es/sciapi/ )                  | Inab repo        | 
 
 
 Those API's access OpenEBench MongoDBs instances (v4.2.5) and allow
