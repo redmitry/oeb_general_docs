@@ -230,11 +230,11 @@ understandable by all kinds of users.
 
 There are currently three available visualization modes in the platform:
 
--   [**2D ScatterPlot**](#Scientific-benchmarking-visualization:-2D-ScatterPlot): chart that allows to visualize results from challenges that use two performance metrics (e.g precision vs recall) [See source code here](https://github.com/inab/OpenEBench_scientific_visualizer)
+-   [**2D ScatterPlot**](#2D-ScatterPlot-results-visualization): chart that allows to visualize results from challenges that use two performance metrics (e.g precision vs recall) [See source code here](https://github.com/inab/OpenEBench_scientific_visualizer)
 
--   [**BarPlot**](#Scientific-benchmarking-visualization:-BarPlot): chart that allows to visualize results from challenges that use one performance metric (e.g F-Measure) [See source code here](https://github.com/inab/Scientific_Barplot)
+-   [**BarPlot**](#BarPlot-results-visualization): chart that allows to visualize results from challenges that use one performance metric (e.g F-Measure) [See source code here](https://github.com/inab/Scientific_Barplot)
 
--   [**Benchmarking Event Summary Table**](#Scientific-benchmarking-visualization:-Benchmarking-Event-Summary-Table): table that summarizes the results of a multi-challenge benchmarking experiment. [See source code here](https://github.com/inab/bench_event_table)
+-   [**Benchmarking Event Summary Table**](#Benchmarking-Event-Summary-Table): table that summarizes the results of a multi-challenge benchmarking experiment. [See source code here](https://github.com/inab/bench_event_table)
 
 All these visualization modes were designed as 'portable widgets'; that
 is, they can be used within the OpenEBench infrastructure, or easily
@@ -243,7 +243,7 @@ Usually, it is just needed [npm](https://www.npmjs.com/) to
 install all the library' dependencies and [Webpack](https://webpack.js.org/) to compile the code, which
 results in a 'build.js' file that can be reused in any web server.
 
-### Scientific benchmarking visualization: 2D ScatterPlot
+### 2D ScatterPlot results visualization
 
 This chart allows to visualize results from challenges that use two
 performance metrics (e.g precision vs recall), and apply several
@@ -275,7 +275,7 @@ the area of interest; and the classification is dynamically recomputed.
 
 For more information, visit its official Git Repository - https://github.com/inab/OpenEBench_scientific_visualizer
 
-### Scientific benchmarking visualization: BarPlot
+### BarPlot results visualization
 
 This chart allows to visualize results from challenges that use one
 single performance metric (e.g F-Measure), and transform them to tabular
@@ -295,7 +295,7 @@ metric) values were considered as the first quartile (best performance).
 
 For more information, visit its official Git Repository - https://github.com/inab/Scientific_Barplot
 
-### Scientific benchmarking visualization: Benchmarking Event Summary Table
+### Benchmarking Event Summary Table
 
 The summary table condenses the results of a whole benchmarking event in
 a single table. Each of the columns corresponds to the
