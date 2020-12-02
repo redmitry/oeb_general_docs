@@ -22,19 +22,19 @@ Contents:
 
    intro/introduction
 
-SCIENTIFIC BENCHMARKING
------------------------
 
 .. toctree::
+   :caption: SCIENTIFIC BENCHMARKING   
    :maxdepth: 4
 
    scientific/scientific
    scientific/level_1
+   scientific/level_2
 
-TEHCNICAL MONITORING
------------------------
 
 .. toctree::
+   :caption: TEHCNICAL MONITORING
    :maxdepth: 4
 
    technical/technical
+   technical/fair
