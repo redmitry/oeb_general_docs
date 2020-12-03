@@ -89,7 +89,7 @@ cross-referenced from the other concepts (e.g. MetricsEvent defines the
 step from a participant dataset to an assessment dataset). The following
 figure illustrates how the different dataset are connected through
 TestActions.
-![1](../media/image10.png)
+![2](../media/image10.png)
 
 TestActions can have very different roles. The role is determined by the
 action type:
@@ -207,7 +207,7 @@ order to do that they have to:
 
 Please note that steps 6 and 7 are now performed by the OpenEBench team.
 
-![1](../media/image8.png)
+![3](../media/image8.png)
 
 ## Scientific benchmarking: visualization and interpretation of results
 

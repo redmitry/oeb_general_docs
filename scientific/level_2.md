@@ -5,8 +5,8 @@ communities to run benchmarking experiments at OpenEBench by using
 benchmarking workflows to assess participants' performance. Those
 workflows compute one or more evaluation metrics given one or more
 reference datasets, and produce several assessment and aggregation
-datasets (see section Benchmarking Data Model: Data Types and
-Cross-References), which are compatible with Level 1, so they can be
+datasets (see section [Benchmarking Data Model: Data Types and
+Cross-References](./level_1.md)), which are compatible with Level 1, so they can be
 easily exported to OpenEBench' Mongo database for long-term storage.
 
 ## Workflows structure
@@ -35,89 +35,67 @@ with our system. Those blocks are:
 -   Outputs: outdir, data_model_export_dir
 
 As seen in the Figure's green box, all three steps produce a series of
-Datasets which are compatible with the [[Elixir Benchmarking Data
-Model]{.ul}][13] (see section).
+Datasets which are compatible with the Elixir Benchmarking Data
+Model ([see section](./level_1.md)).
 
-![][32]
+![1](../media/image7.jpg)
 
 For reproducibility and interoperability purposes, OpenEBench encourages
 communities managers to submit their pipelines wrapped with a workflow
-management system (e.g [[Nextflow]{.ul}][33]) and its tools
-containerized (e.g. [[Docker]{.ul}][34]). **NOTE for developers, in
+management system (e.g [Nextflow](https://www.nextflow.io/)) and its tools
+containerized (e.g. [Docker](https://www.docker.com/)). **NOTE for developers, in
 order to make the workflow containers reproducible and stable in the
 long-term, make sure to use specific versions in the container base
 image (e.g.ubuntu:16.04, NOT ubuntu:latest).**
 
 For more information about how to build your own benchmarking workflow,
 see our TCGA sample workflow at
-[[https://github.com/inab/TCGA_benchmarking_workflow]{.ul}][35]. **NOTE
+[https://github.com/inab/TCGA_benchmarking_workflow](https://github.com/inab/TCGA_benchmarking_workflow). **NOTE
 for developers: In order to make your workflow compatible with the
 OpenEBench infrastructure, please make sure to use the same 3-step
 structure, output formats, and parameter names in it.**
 
-#### Scientific Benchmarking: workflow parameters
+## Workflow parameters
 
 Description of the parameters used in OEB benchmarking workflows:
 
--   **[INPUTS]{.ul}**
+-   **<u>INPUTS</u>**
 
     -   **input**: predictions file submitted by the participants
 
-    -   **public_ref_dir**: directory which contains one or more
-        > reference files used to validate input data.
+    -   **public_ref_dir**: directory which contains one or more reference files used to validate input data.
 
     -   **participant_id**: name of the tool used for the predictions.
 
-    -   **goldstandard_dir**: directory where the \'gold standards\' or
-        > 'reference data' to compute the metrics are found.
+    -   **goldstandard_dir**: directory where the 'gold standard' or 'reference data' to compute the metrics are found.
 
-    -   **challenges_ids**: list of challenges (performance evaluation
-        > methods) which are performed in the benchmark - if you have
-        > only one evaluation method, just define a name for it.
+    -   **challenges_ids**: list of challenges (performance evaluation methods) which are performed in the benchmark - if you have only one evaluation method, just define a name for it.
 
-    -   **assess_dir**: directory where the performance metrics for
-        > other participants to be compared with the submitted one are
-        > found. If there is no other benchmark data yet, an empty
-        > aggregation dataset should be defined.
+    -   **assess_dir**: directory where the performance metrics for other participants to be compared with the submitted one are found. If there is no other benchmark data yet, an empty aggregation dataset should be defined.
 
-    -   **community_id**: name or OEB permanent ID for the benchmarking
-        > community.
+    -   **community_id**: name or OEB permanent ID for the benchmarking community.
 
--   **[OUTPUTS]{.ul}**
+-   **<u>OUTPUTS</u>**
 
-    -   **validation_result**: file path where it is written the
-        > validated participant JSON, which corresponds to a minimal
-        > dataset compatible with the [[Elixir Benchmarking Data
-        > Model]{.ul}][13] (see section).
+    -   **validation_result**: file path where it is written the validated participant JSON, which corresponds to a minimal dataset compatible with the Elixir [Benchmarking Data Model](./level_1.md).
 
-    -   **assessment_results**: file path where it is written the set of
-        > assessment datasets in JSON, which corresponds to minimal
-        > datasets compatible with the [[Elixir Benchmarking Data
-        > Model]{.ul}][13] (see section).
+    -   **assessment_results**: file path where it is written the set of assessment datasets in JSON, which corresponds to minimal datasets compatible with the Elixir [Benchmarking Data Model](./level_1.md).
 
-    -   **outdir**: directory where the run results are saved - one or
-        > more aggregation files used by the visualization, and several
-        > SVG/PNG plots.
+    -   **outdir**: directory where the run results are saved - one or more aggregation files used by the visualization, and several SVG/PNG plots.
 
-    -   **statsdir**: directory where all nextflow statistics (timeline,
-        > trace, report...) are written.
+    -   **statsdir**: directory where all nextflow statistics (timeline, trace, report...) are written.
 
-    -   **data_model_export_dir**: file where all the datasets generated
-        > during the workflow, which are compatible with the [[Elixir
-        > Benchmarking Data Model]{.ul}][13] (see section), are merged
-        > into a single JSON, which is ready to be validated and pushed
-        > to Level 1.
+    -   **data_model_export_dir**: file where all the datasets generated during the workflow, which are compatible with the Elixir [Benchmarking Data Model](./level_1.md), are merged into a single JSON, which is ready to be validated and pushed to Level 1.
 
-    -   **otherdir**: directory where other community' specific results
-        > can be written.
+    -   **otherdir**: directory where other community' specific results can be written.
 
 **NOTE for developers: In order to make your workflow compatible with
 the OpenEBench infrastructure, please make sure to use the same
 parameter names in it.**
 
-#### Scientific benchmarking: Virtual Research Environment (VRE)
+## Virtual Research Environment (VRE)
 
-The [[OpenEBench Virtual Research Environment (VRE)]{.ul}][36] is the
+The [OpenEBench Virtual Research Environment (VRE)](https://openebench.bsc.es/vre) is the
 e-infrastructure where OpenEBench Level 2 is underpinned. It integrates
 OpenEBench resources with the purpose of developing, evaluating, and
 offering unified benchmarking workflows useful for the different
@@ -127,7 +105,7 @@ OpenEBench VRE offers a complete web interface which brings together
 public and/or consolidated benchmarking datasets, private participants
 data, and the necessary mechanisms to import and execute benchmarking
 workflows on top of a cloud computing infrastructure, for instance, the
-ones at the [[Barcelona Supercomputing Center (BSC)]{.ul}][37]
+ones at the [Barcelona Supercomputing Center (BSC)](https://www.bsc.es/)
 facilities.
 
 The platform serve different purposes to different users:
@@ -138,8 +116,8 @@ The platform serve different purposes to different users:
 
 -   **Researchers** can objectively compare bioinformatic methods through the community defined metrics, in order to choose the most effective software for his research purposes.
 
-Benchmarking workflows consist of three steps (visit 'workflows
-structure' section for more information on this):
+Benchmarking workflows consist of three steps (visit ['workflows
+structure' section](#workflows-structure) for more information on this):
 
 -   Validation of participants result.
 
@@ -155,7 +133,7 @@ moment, the Nextflow workflow manager. Also, the community responsibles
 can provide customized visualization methods to browse participant
 results, individual metrics and/or assessment.
 
-#### Scientific benchmarking: Community Manager Role
+### Community Manager Role
 
 In order to integrate a workflow in the Virtual Research Environment,
 managers associated to scientific communities have to first define
@@ -163,8 +141,8 @@ reference datasets and metrics to be used in a benchmarking workflow.
 
 Once the metrics and reference datasets are defined, the workflow steps
 need to be set, preferably using Docker containers and a workflow
-manager such as Nextflow (visit 'workflows structure' section for more
-information on this).
+manager such as Nextflow (visit ['workflows
+structure' section](#workflows-structure) for more information on this).
 
 If OpenEBench guidelines and good practices are followed, the workflow
 should be ready to be integrated at the platform in the frame of a
@@ -173,19 +151,17 @@ following steps need to be performed:
 
 1.  Workflow should be publically available in a Git repository, a URL and specific commit hash need to be provided.
 
-2.  Docker images have to be built in the VRE backend, which can be done by either providing OpenEBench team the required Dockerfiles, or uploading them as public containers to [[Docker Hub]{.ul}][38].
+2.  Docker images have to be built in the VRE backend, which can be done by either providing OpenEBench team the required Dockerfiles, or uploading them as public containers to [Docker Hub](https://hub.docker.com/).
 
 3.  Create a new entry in VRE Tools database, specifying the workflow, reference data, inputs & output parameters to be used, and their associated VRE metadata.
 
 4.  Make that entry available in the VRE interface as a new benchmarking workflow, so that software developers can test their methods at the workspace.
 
-Also, it is highly recommended to fill in the [[VRE Help]{.ul}][39]
-section of the Tool/Workflow to inform users about how to test their
-methods (e.g. formats, parameters...).
+Also, it is highly recommended to fill in the [VRE Help](https://openebench.bsc.es/vre/help/tools.php) section of the Tool/Workflow to inform users about how to test their methods (e.g. formats, parameters...).
 
-![][40]
+![2](../media/image1.png)
 
-#### Scientific benchmarking: Software Developer Role
+### Software Developer Role
 
 Software developers are the end users of Level 2 benchmarking workflows.
 They upload to the platform the results of the method interested in
@@ -204,11 +180,11 @@ they can also rerun the workflow with new data, and compare the results
 against themselves until they are satisfied with their performance.
 
 Please, refer to VRE *'Help'* section to read the instructions on how to
-[[Upload Data]{.ul}][41] or [[Launch a Workflow]{.ul}][42].
+[Upload Data](https://openebench.bsc.es/vre/help/upload.php) or [Launch a Workflow](https://openebench.bsc.es/vre/help/launch.php).
 
-![][43]
+![3](../media/image12.png)
 
-#### Scientific benchmarking: VRE Tool Specification Summary
+### ¡VRE Tool Specification Summary
 
 [[https://docs.google.com/document/d/1Fid4RkNyt9-\_0g_SrCw8J1k8MrOMZI4GLzzpdCAATZc/edit\#]{.ul}][44]
 
