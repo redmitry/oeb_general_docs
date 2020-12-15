@@ -184,11 +184,221 @@ Please, refer to VRE *'Help'* section to read the instructions on how to
 
 ![3](../media/image12.png)
 
-### ¡VRE Tool Specification Summary
+### Integration of a new benchmarking workflow in VRE
 
-[[https://docs.google.com/document/d/1Fid4RkNyt9-\_0g_SrCw8J1k8MrOMZI4GLzzpdCAATZc/edit\#]{.ul}][44]
+Community managers should supply certain information to VRE, which roughly can be divided into three interconnected parts: 
 
-#### Scientific benchmarking: What's behind Virtual Research Environment?
+1. The tool specification file,  for defining arguments, input and output files, etc.
+2. The tool workflow, which includes the code needed to compute the benchmark, preferably developed using containers and workflow managers (see [workflows structure](#workflows-structure) section). VRE provides a wrapper for correctly interpreting VRE tool invocation.
+3. The web interface data and documentation to be displayed to the end-user
+
+From such data VRE will able to:
+
+- Prepare tool user interface
+- Check tool requirements 
+- Stage in input files
+- Prepare command line execution
+- Submit tool execution
+- Monitor tool execution
+- Stage out output files
+- Show tool results
+
+#### Tool interaction Summary
+
+The following scheme summarizes how the different elements provided by tool developers are included in the chain of events occurred when a tool is launched within VRE. In red, those element that require the tool developer intervention:
+- Currently, a tool execution starts when the input files are selected from the user workspace. All data listed in the table is read from the VRE data repository, right now is a local database. The tool web form allows the user to fill in the arguments, and to associate the selected files to the corresponding tool input file. This web form is the first point in which the information given by the tool developer is required, as ‘arguments’ and ‘input_files’ metadata are extracted from the tool specification document (tool.json).
+- With the concrete values that tool input files and arguments take for that specific execution, a configuration file is automatically build, the so called config.json. 
+- The config.json, together with others structural files and input files, are required for VRE when calling the tool wrapper, a piece of code executed in the tool virtual machine that parses and validates the data VRE is sending, and passes it to the actual tool code. The tool is executed in the working directory the VRE has prepared, and the output files are expected to be created right there.
+- Once the execution has finished, the output files need to be registered into the repository for VRE and other MuG services to recognize and find them. Such process require file related metadata which may not be possible to be defined beforehand. 
+- If output file metadata is dynamic, case (E) is given, and the tool wrapper needs to create an extra file containing such meta_data (results.json).
+- Once the data is registered, VRE is able to list it in the user workspace, and  output files can be visualized, even using tool specific viewers (custom visualizer).
+
+![4](../media/image11.png)
+
+#### Tool specification file (tool.json)
+
+VRE requires some tool metadata for being able to interact with the tool itself, and such data ought to be mainly provided by the tool developer. It includes definitions for input and output files, arguments, etc. The chosen support for sharing it has been a JSON file defined according the following JSON SCHEMAS. Some examples are also offered.
+
+| Tool specification information |
+|--------------------------------|
+| [JSON schema](https://github.com/Multiscale-Genomics/VRE_tool_jsons/blob/master/tool_specification/tool_schema.json)  | 
+| [Example JSON](https://github.com/Multiscale-Genomics/VRE_tool_jsons/tree/master/tool_specification/examples)|     
+| [Online JSON validator](jsonschemavalidator.net)|
+
+Here, the list the fields that should be included in the tool definition. This is only a short description, so please, check the tool_schema referred above file for more information. Notice also the differences between the production site and the version under development.
+
+**_id**
+
+Internal tool identifier. It cannot have spaces nor special characters. 
+
+**name**
+
+Short tool name, which appears in the VRE tool selectors. Maximum characters: 25.
+
+**title**
+
+Long tool name, which appears in the specific tool VRE pages. Maximum characters: 50
+
+**short_description**
+
+Short description of the tool. Maximum characters: 300.
+
+**URL**
+
+URL of the original tool (web page, github, etc.)
+
+**publication**
+
+DOI reference of the tool publication, if any.
+
+**owner**
+
+Information about the tool developer, ie. contact e-mail, institution.
+
+**external**
+Indicates whether the tool is part of the VRE core, ie. BAM validation tool. By default, all tools are “external: true”.
+
+**keywords**
+
+Keywords that will be used in the main home page to classify the tool.
+
+**Launcher** 
+Information about how VRE should launch the tool. Currently, only SGE is implemented. The queue attribute should be left null, it will be set by the VRE team. The executable corresponds to the script to be called by VRE when launching the tool (Figure 1, section C). It should be the absolute path, and be located in the tool virtual machine.
+**Infrastructure** 
+Information about where and how VRE should launch the tool. Some application details are required here, like:
+- wallTime: String in minutes. By default, “1440” (24h).
+- cpus: Integer. By default, 1.
+- memory: String in Gbs. By default “1.0” (1Gb).
+- executable file. String corresponding to the code be called by VRE when launching the tool (Figure 1, section C). It should be the absolute path, and be located in the tool virtual machine with execution permissions (+x).
+- cloud name. Implies the definition of the infrastructures where the tool could be deployed. Three clouds are being integrated:
+    - “mug-bsc”
+    - “mug-irb”
+    - “mug-ebi”
+Each cloud supports one or two launchers, i.e. communication procedures of VRE to reach theses infrastructures and activate the application deployment procedure there. Now, two options are under development:
+- launcher “PMES” :  requires attribute workflowType (“Single” | “COMPSs”), and accepts minimumVMs, maximumVMs, initialVMs and default_cloud (true | false)
+- launcher “SGE”: accepts attribute default_cloud (true | false).
+
+**input_files**
+
+Array of all the input files accepted by the tool. Each input file should be defined as follows:
+name: unique name that will be used as identifier in the config.json (Figure 1, section B). No spaces or special characters allowed. 
+description: long name that will be used in the tool web form. (Figure 1, section A)
+help: long description of the input file. It will appear in the tool web form. (Figure 1, section A)
+file_type: array of allowed input formats. Check accepted values in tool_schema.json .
+data_type: array of the allowed data types. Check accepted values in tool_schema.json . 
+required: true if not optional
+allow_multiple: true if more than one instance is allowed
+
+**arguments**
+
+Array of all the arguments accepted by the tool. Each argument should be defined as follows:
+- name: unique name that will be used as identifier in the config.json (Figure 1, section B). No spaces or special characters allowed. 
+- description: long name that will be used in the tool web form (Figure 1, section A).
+- help: long description of the input file. It will appear in the tool web form (Figure 1, section A),
+- required: true if not optional
+- allow_multiple: true if more than one instance is allowed
+- type: type of the argument. Check accepted values in tool_schema.json. It is reflected  in the tool web form (Figure 1, section A). For instance. “type: enum” will be visualized as an input selector, and  “type:boolean”  as a ON/OFF button.
+- default: argument value to show be default in the tool web form (Figure 1, section A).
+
+
+**output_files**
+ Array of output files that the tool may return. Each output file should be defined as follows:
+- name: unique name that will be used as identifier in the config.json (Figure 1, section B). No spaces or special characters allowed. 
+- required: true if the tool always must return this output
+- allow_multiple: true if more than one instance is returned
+- file: output file metadata, following the data model of the MuG DMP. Some attributes from the DMP model, such as creation_time, can be left empty, as they will be set dynamically, during the output registration to the VRE repository (Figure 1, section D). Others are impossible to be predefined:
+    - File_path : absolute file path
+    - Source_id : absolute file path/s of the predecessor file
+
+Notes: Consider that if you need to create a “custom visualizer”, you need to pass the data to be visualized to the VRE. The way of doing so is creating an output_file like follows: data_type: “tool_statistics”; file_type: “TAR”; compressed: “gzip”. 
+
+**control_file**
+
+Filename of the JSON file that the tool wrapper should create if the tool returns dynamic or complex output files (Figure 1, results.json). The file transfers to VRE all the information regarding the output files that can not be defined beforehand using the property output_files described above. Dynamic output files include those outputs taking the filename after a certain input file, or whose number varies according an argument value, etc. If the tool only returns static output files, this property should not be set. Below, in the wrapper seccion, more details on how to create this file.
+
+#### Tool virtual machine
+
+The tool developer will need to install its tool in a Virtual Machine (VM), which will be deployed in the MuG cloud. Also, it will need to provide a tool wrapper for adapting the particulars of the tool to the VRE needs. 
+
+**Tool**
+
+The tool should be as self-contained as possible, so that it can be easily portable to other future infrastructures if required. 
+A shared disk will be accessible from the cloud so that data too big to be stored in the VM disk can make use of it.
+
+**Wrapper**
+
+The main functions  of the tool wrapper are :
+Interpreting the tool call from VRE
+Calling the tool itself
+Returning the output files according the tool specification file.
+
+In order to prepare such a wrapper, some information about how VRE invokes the tool, and what VRE expect from it is required. Here, we detail that information.
+
+VRE creates a new directory in the user data directory to use it as the tool working directory. It is the so called project . This is the directory where output files are expected. In there, all the VRE files required for starting an execution will be located:
+
+
+**Tool working directory files  (before execution)**
+
+| Name          |                     Example                        | Description | 
+|-------------------------------|-----------------------------------------------------|-------------|
+| Submission file (if launcher: “SGE”)    | [.enqueue.json](https://github.com/Multiscale-Genomics/VRE_tool_jsons/blob/master/tool_execution/sample_project/myNuclDynProject/.enqueue.sh)                | BASH file invoking the tool application. SGE will execute it the chosen tool virtual machine.       |
+| Submission file (if launcher: ”PMES”)  | [.submit](https://github.com/Multiscale-Genomics/VRE_tool_jsons/blob/dev/tool_execution/sample_project/myPydockProject/.submit)                | JSON file posted to PMES service. PMES will build from it a valid system call, and will execute it in the chosen tool virtual machine.       |
+| Tool configuration file  | [.config.json](https://github.com/Multiscale-Genomics/VRE_tool_jsons/blob/master/tool_execution/sample_project/myNuclDynProject/.config.json)| More details below.
+(Figure 1, config.json)       |        
+| Input metadata|  [.input_metadata.json](https://github.com/Multiscale-Genomics/VRE_tool_jsons/blob/dev/tool_execution/sample_project/myPydockProject/.input_metadata.json)                  | More details below       | 
+
+The eventual tool invocation, regardless whether SGE or PMES is used, is the following:
+[tool_wrapper]
+    --config        [tool_configuration_file]
+    --root_dir        [user_data_directory]
+    --public_dir        [mug_public_directory]
+    --in_metadata        [input_metadata]
+    --out_metadata  [control_file]     > [log_file]
+
+**Tool wrapper**
+
+The executable file that VRE calls when launching a tool. Its absolute path should be defined in the tool specification file (Figure 1, tool.json). OpenEBench offers a [generic Nextflow execution wrapper](https://github.com/inab/vre-process_nextflow-executor) that should be able to fit to any of the workflows that follow our [benchmarking workflows structure](#workflows-structure)
+
+**Tool configuration file** (--config)
+
+Contains the value for all the arguments and inputs files as set by the end-user. It is created by VRE based on the tool web form.
+It is a JSON file containing two separated arrays of key/value pairs, one for the input files, the other for the arguments:
+- The keys correspond to the name property of the input_files or arguments entries as defined in the tool specification document (Figure 1, tool.json). 
+- The values are those set by the end-user through the tool web form. The type of the values, ie. “string”,  correlates  with the type attribute as defined in the specification file.
+
+[Example of configuration file](https://github.com/Multiscale-Genomics/VRE_tool_jsons/blob/master/tool_execution/sample_project/myNuclDynProject/.config.json)
+
+The project name and description are argument present in the tool web form of all the VRE tools. This is because the project correspond the name of the folder that VRE creates as working directory for the tool execution, and the end-user can set its name. For that reason, it will be a common argument always present in the arguments array of this configuration file.
+Notes:
+- If “allow_multiple: true”, more than one instance of a specific input file is allowed, so the array may contain multiple elements referring to same input file name. Notice then, that the name cannot be treated as an identifier.
+- input_files values are not file paths, but file identifiers (file_ids). They correspond to the identifiers of the VRE data repository, where all the metadata for a file is stored, for instance, file_path, file_type, data_type. etc. In the current version,  the repository is not yet  accessible via REST, so the data is make accessible through a separate file,  the --metadata. 
+
+**User data directory** (--root_dir)
+
+Future mounting point of the MuG user data in the virtual machines. Corresponds to the user workspace directory. Hence, the tool will have accessible all user data located below that point, ie, upload folder, other project executions.
+Notes:
+- All paths passed to the tool are relative to this root_dir. So, given the project folder name from the configuration file, the absolute path for the working directory will be:
+[user_data_directory] / [tool_configuration_file]->arguments->project
+
+**Input metadata** (--in_metadata )
+
+JSON file containing the VRE repository data related to each of the tool input files. In the future, the repository will be accessible via REST, but until then, this file is a dump for such data and the wrapper need to read it for extracting input files properties (file_path, file_type, data_type, assembly, source_id, associated_files, etc).  
+
+[Example of  VRE metadata file](https://github.com/Multiscale-Genomics/VRE_tool_jsons/blob/dev/tool_execution/sample_project/myPydockProject/.input_metadata.json)
+
+Notes:
+For extracting the file path of  an input_file, the tool wrapper needs to consult two files: the tool configuration file (--config) for getting the file_id of a given input file, and this VRE metadata for getting the file_path attribute given that file_id.
+1. [configuration_file]->input_files->input_name
+2. [VRE_metadata]->[file_id]->file_path
+
+**Control file** ( --out_metadata )
+
+Should be created by the tool wrapper after executing the tool itself (Figure 1, results.json). For each of the output files listed in the tool specification file (tool.json), VRE needs an associated set of metadata for properly registering them into the VRE data repository. VRE extracts them from (1), the tool specification file, and (2)  this control file. If all the required metadata can be defined in (1) beforehand, this file is not needed. If not, the MuG DMP data model should be followed again for defining those output file attributes dynamically set, like the file_path of the files just created by the tool execution.
+
+[Example of  control file](https://github.com/Multiscale-Genomics/VRE_tool_jsons/blob/dev/tool_execution/sample_project/myPydockProject_out/.results.json)
+
+
+### What's behind Virtual Research Environment?
 
 The VRE is conceived as a PaaS (platform as a service) where community
 managers populate the infrastructure with benchmarking workflows. These
@@ -211,35 +421,33 @@ Supercomputing Center, using OpenNebula (https://opennebula.org/) and
 the KVM hypervisor (https://www.linux-kvm.org).
 
 *Process management:* VRE uses two complementary layouts for process
-management: i) Sun Grid Engine (SGE,
-[[https://sourceforge.net/projects/gridscheduler/]{.ul}][45]), in
-combination with OneFlow
-([[https://docs.opennebula.org/5.4/advanced_components/application_flow_and_auto-scaling/appflow_use_cli.html]{.ul}][46]),
+management: i) [Sun Grid Engine (SGE)](https://sourceforge.net/projects/gridscheduler/), in
+combination with [OneFlow](https://docs.opennebula.org/5.4/advanced_components/application_flow_and_auto-scaling/appflow_use_cli.html),
 a component of the OpenNebula framework that allows managing Multi-VM
 applications and auto-scaling. SGE is used to manage applications where
 no complex workflows are necessary, requiring only to deploy additional
 workers on peaks of demand, ii) the COMPS Superscalar (COMPSs)
-programming model (and its python binding pyCOMPSs (39)), managed by the
-Programming Model Enactment Service (PMES) (40), which interacts with
+programming model (and its python binding pyCOMPSs), managed by the
+Programming Model Enactment Service (PMES), which interacts with
 cloud infrastructures through Open Cloud Computing Interface (OCCI,
 <http://occi-wg.org/>) servers. PMES/pyCOMPSs are used to control
 complex workflows and distributed execution.
 
 *Database manager:* Operational data and metadata regarding installed
-tools, public repositories, and user's files are maintained in a MongoDB
-database ([[https://www.mongodb.com]{.ul}][47]). User's data is stored
+tools, public repositories, and user's files are maintained in a [MongoDB
+database](https://www.mongodb.com). User's data is stored
 in a standard filesystem in its original format.
 
 *Authentication and authorization system:* Data privacy is maintained
 using the authentication and authorization server Keycloak
-([[http://www.keycloak.org/]{.ul}][48]) to handle all internal
+(http://www.keycloak.org/) to handle all internal
 communications and user access. Keycloak implements OpenID Connect which
 allows for Web access on the code authorization flow of OAuth2, and a
 token-based authentication for the REST services. For registered users,
 authentication schemes based on username/password, but also third-party
 identity providers (Google, LinkedIn, Elixir) are accepted.
 
-#### Scientific Benchmarking: VRE Workspace
+### VRE Workspace
 
 **User access**
 
