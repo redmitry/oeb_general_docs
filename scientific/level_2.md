@@ -9,6 +9,8 @@ datasets (see section [Benchmarking Data Model: Data Types and
 Cross-References](./level_1.md)), which are compatible with Level 1, so they can be
 easily exported to OpenEBench' Mongo database for long-term storage.
 
+Going beyond the ELIXIR-EXCELERATE project, OpenEBench is closely working with the H2020 Multiscale Complex Genomics project (https://www.multiscalegenomics.eu/) for re-utilizing their virtual research environment (VRE). Adopting and extending MuG VRE will shorten the deployment cycle and benefiting from the know how generated in that project. Moreover, it will contribute to move faster to the level 2 and 3 for the scientific benchmarking support levels.
+
 ## Workflows structure
 
 As seen in the Figure below, our benchmarking workflows are composed of
@@ -484,3 +486,45 @@ available:
 -   Visualization toolkit: Available visualizers for the specific file/s selection (based on their data type and format).
 
 -   Tools toolkit: Available tools for the specific file/s selection (based on their data type and format).
+
+### VRE Web interface
+VRE provides a web interface that allows the end-user to manage all the files stored in her or his workspace and use them with the different tools provided by the developers. Tool developers must supply information for the home page, the tool web form (Figure 1. Section A), the project custom visualizer  (Figure 1. Section F) and the tool’s help.
+
+**Home page**
+
+The home page is an index that easily shows the end-user which are the available tools and what can be done with them.
+
+![5](../media/image13.png)
+
+The requested information includes:
+- Description
+A description of the tool. Maximum characters: 1500.
+- Logo
+ of the tool. Format: png. Minimum size: 600x600.
+- Images
+Screenshots of the tool or useful images related to it. Minimum number: 1. Maximum number: 5. Minimum size:1024x[height variable]
+
+**Tool web form**
+
+In this form, which is accessed after selecting the input files from the workspace, the end-user will be able to modify the arguments provided in the tool specification json. This form consists of three parts:
+
+- Inputs: common for all the tools, shows a list with the input files selected by the user and allows to preview them depending of the format.
+- Project: common for all the tools, in this part the end-user must provide a project name, which corresponds to the tool working directory that will be created for such tool execution, Optionally, a project description can also be specified.
+- Tool settings: this is the custom part of the form where the arguments provided by the developer will be filled in by the end-user.
+
+![6](../media/image14.png)
+
+Being aware of the complexity of some tools, VRE provides some features in order to increase the flexibility of the input process. So, even if the form is mainly build based on the information extracted from the tool specification file, these extra features are manually set, so please contact us if your tool requires them.
+
+**Custom Output**
+
+Besides the output files stored in the end-user workspace, VRE also provides the View Results output page. It shows the data that the tool developer thinks relevant in a totally customized view (how to pass this data). In this page the most relevant results can be shown in a more kind way. Below there are a list of features provided by VRE:
+
+- Tables fed by csv files provided by the tool
+- Plots as images provided by the tool
+- Download button
+
+The custom visualizer should take as input one of the tool output files, in principle, the one presenting “data_type: tool_summary”. The customized  HTML page will be prepared for nicely displaying it to the end-user. So if the tool has some data that need a specific treatment for being correctly visualized, or the tool returns some extra data good for summarizing the execution, define it as another tool output file, and contact us for preparing the HTML accordingly.  
+
+![7](../media/image15.png)
+
