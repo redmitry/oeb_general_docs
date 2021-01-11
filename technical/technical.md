@@ -4,7 +4,7 @@ Software quality is a key issue in research, as the quality of scientific outcom
 
 OpenEBench, as indicated above, holds a specific infrastructure to [monitor software quality](https://openebench.bsc.es/tool). 
 
-## Metrics
+# Metrics
 
 In this infrastructure we have put together a series of **quality metrics** taken from a number of sources. The source of such metrics includes documents by the Software Sustainability Institute, recommendations for open source software development, or for software quality. For each metric, a specific source of information have been chosen and the necessary interface implemented. 
 
@@ -54,7 +54,7 @@ The present contents of OpenEBench Tools monitoring repository contains 15,002 t
 | Galaxy Shed                                                   |       1,494      |
 | Total Entries (total entries after collapsing redundant ones) | 60,730  (22,284) |
 
-## Web interface
+# Web interface
 
 The tools monitoring section allows to perform a complete search, including tools titles, description and type, and relevant annotations like EDAM’s operation and topic terms, as seen in the figure below.
 
@@ -95,7 +95,7 @@ Examples of the widgets, as well as instructions on how to implement them, can b
 - [Citations chart](https://github.com/inab/citations-widget-OEB/blob/master/README.md)
 
 
-## RESTful API’s
+# RESTful API’s
 
 | Data Retrieval APIs           |                     URL                        | Source code | 
 |-------------------------------|-----------------------------------------------------|-------------|
@@ -109,7 +109,7 @@ Although OpenEBench website gives access to all information stored in the data w
 
 It is relevant to note that information can be obtained for specific versions or specific deployments of the tool. This opens the possibility of performing historical analysis comparing the performance and/or availability of different resources versions. More information on  the API is available at https://gitlab.bsc.es/inb/elixir/tools-platform/elixibilitas.
 
-## Coordination with other ELIXIR activities.
+# Coordination with other ELIXIR activities.
 
 As mentioned earlier, OpenEBench aims to become an knowledge hub around the technical monitoring and scientific benchmarking of bioinformatics tools, servers and workflows. In such effort, it is important to being able to integrate data from diverse repositories, especially from the ELIXIR platforms, in order to derive most of the already mentioned quality metrics. At the time of writing this report, OpenEBench integrates tools, servers and workflows from four main repositories. Importantly, this integration is bidirectional, which will facilitate the later access to all metrics available at OpenEBench by those platforms. 
 
