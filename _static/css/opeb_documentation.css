@@ -5,18 +5,12 @@
 /* @import '../sphinx_rtd_theme.css'; */
 @import 'theme.css';       /* for the Read the Docs theme */
 
-a[href^='http'] {
-    background-image: url(../images/external-link-ltr-icon.svg);
-    background-position: center right;
-    background-repeat: no-repeat;
-    padding-right: 13px;
+a[href^='http']::after {
+    content: url(../images/external-link-ltr-icon.svg);
 }
 
-a[href*='openebench.bsc.es'] {
-    background-image: url(../images/OpenEBench-decorator.svg);
-    background-position: center right;
-    background-repeat: no-repeat;
-    padding-right: 13px;
+a[href*='openebench.bsc.es']::after {
+    content: url(../images/OpenEBench-decorator.svg);
 }
 
 .icon.icon-home:before {
