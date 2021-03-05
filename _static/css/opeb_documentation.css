@@ -12,3 +12,9 @@ a[href^='http'] {
     padding-right: 13px;
 }
 
+a[href*='openebench.bsc.es'] {
+    background-image: url(../images/OpenEBench-decorator.svg);
+    background-position: center right;
+    background-repeat: no-repeat;
+    padding-right: 13px;
+}
