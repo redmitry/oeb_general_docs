@@ -6,7 +6,7 @@ reflecting specifying scientific challenges. Chosen metrics allow us to
 objectively evaluate the relative scientific performance of the
 different participating resources. It is even possible to understand
 what are the software potential biases, strengths and weaknesses and/or
-under which conditions do they perform better or worse.
+under which conditions do they perform better or worse..
 
 Importance of communities
 --------------------------------------------------
