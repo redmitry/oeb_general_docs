@@ -1,7 +1,8 @@
 /** css/custom_theme.css **/
 
 /* This line is theme specific - it includes the base theme CSS */
-@import '../sphinx_rtd_theme.css';
+@import '../alabaster.css';
+/* @import '../sphinx_rtd_theme.css'; */
 /*@import 'theme.css';       /* for the Read the Docs theme */
 
 a[href^='http'] {
