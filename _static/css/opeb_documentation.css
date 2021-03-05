@@ -18,3 +18,9 @@ a[href*='openebench.bsc.es'] {
     background-repeat: no-repeat;
     padding-right: 13px;
 }
+
+.fa-home:before,
+.icon-home:before {
+ content: url(../images/OpenEBench-decorator.svg) ""
+}
+
