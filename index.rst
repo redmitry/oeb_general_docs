@@ -14,10 +14,9 @@ OpenEBench, the ELIXIR platform for benchmarking, aims to address the main chall
 
 Find more about the platform here!
 
-Contents:
-#########
 
 .. toctree::
+   :caption: INTRODUCTION
    :maxdepth: 4
 
    intro/introduction
