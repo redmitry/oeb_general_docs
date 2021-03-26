@@ -197,13 +197,13 @@ order to do that they have to:
 
 4.  Merge the set of JSON objects into a single array. In Linux systems, executing the following command in the root directory that contains all files does the trick : `jq -s . $(find . -type f -name "*.json") > your_file_name.json` (jq library needs to be installed).
 
-5.  Upload the array of JSON objects to the temporary database (using the assigned username and password) with the following command : `curl -v -X POST -u <user>:<passwd> -H "Content-Type: application/json" https://openebench.bsc.es/api/scientific/submission/ -d @your_file_name.json`
+5.  Upload the array of JSON objects to the temporary database (using the assigned username and password) with the following command : `curl -v -X POST -u <user>:<passwd> -H "Content-Type: application/json" https://dev-openebench.bsc.es/api/scientific/submission/?community_id=OEBC002 -d @your_file_name.json`
 
 6.  2nd validation of data in temporary database against Benchmarking Data Model.
 
-7.  Use the [migration tool](https://github.com/inab/benchmarking/tree/master/distiller/src/main/java/es/elixir/bsc/openebench) for moving the data to production OEB Mongo DB.
+7.  Use the [migration tool](https://gitlab.bsc.es/inb/elixir/openebench/openebench-distiller-tool) for moving the data to production OEB Mongo DB.
 
-8.  Data is ready to be visualized in [OpenEBench](https://openebench.bsc.es/)!!
+8.  Data is ready to be visualized in [OpenEBench](https://dev-openebench.bsc.es/)!!
 
 Please note that steps 6 and 7 are now performed by the OpenEBench team.
 
