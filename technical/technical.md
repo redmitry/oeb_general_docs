@@ -97,11 +97,11 @@ Examples of the widgets, as well as instructions on how to implement them, can b
 
 # RESTful API’s
 
-| Data Retrieval APIs           |                     URL                        | Source code | 
-|-------------------------------|-----------------------------------------------------|-------------|
-| OpenEBench Tools Monitoring   | [endpoint](https://openebench.bsc.es/monitor/)                  | [https://gitlab.bsc.es/inb/elixir/tools-platform/elixibilitas](https://gitlab.bsc.es/inb/elixir/tools-platform/elixibilitas)        |
-| OpenEBench Scientific Upload  | [endpoint](https://openebench.bsc.es/api/scientific/submission/)| [https://gitlab.bsc.es/inb/elixir/openebench/openebench-submission-api](https://gitlab.bsc.es/inb/elixir/openebench/openebench-submission-api)        |        
-| OpenEBench Scientific Retrieve|  [endpoint](https://openebench.bsc.es/sciapi/ )                  | Inab repo        | 
+| Data Retrieval APIs            |                     URL                        | Source code | 
+|--------------------------------|------------------------------------------------|-------------|
+| OpenEBench Tools Monitoring    | [endpoint](https://openebench.bsc.es/monitor/)                  | [https://gitlab.bsc.es/inb/elixir/tools-platform/elixibilitas](https://gitlab.bsc.es/inb/elixir/tools-platform/elixibilitas)        |
+| OpenEBench Scientific REST API | [endpoint](https://dev-openebench.bsc.es/api/scientific/access/)| [https://gitlab.bsc.es/inb/elixir/openebench/openebench-rest-api](https://gitlab.bsc.es/inb/elixir/openebench/openebench-submission-api)        |        
+| OpenEBench Scientific Retrieve |  [endpoint](https://openebench.bsc.es/sciapi/ )                  | Inab repo        | 
 
 Although OpenEBench website gives access to all information stored in the data warehouse in a friendly manner, the platform is designed to provide information in a way that can be integrated in other infrastructures. To this end a series of RESTful API’s have been developed . Information from these APIs is obtained in JSON format (see partial example on figure  below). 
 
